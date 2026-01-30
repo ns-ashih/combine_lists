@@ -53,6 +53,12 @@ def read_txt(path: Path) -> List[str]:
     if not path.exists():
         raise FileNotFoundError(path)
 
+    text = path.read_text(encoding="utf-8")
+
+    if text and not text.endswith("\n"):
+        text += "\n"
+        path.write_text(text, encoding="utf-8")
+
     return [
         line.strip()
         for line in path.read_text(encoding="utf-8").splitlines()
